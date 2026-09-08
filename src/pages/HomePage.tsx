@@ -7,6 +7,7 @@ import { DeadlineCountdown } from '../components/returns/DeadlineCountdown'
 import { EmptyState } from '../components/ui/EmptyState'
 import { CATEGORY_LABELS } from '../constants/categories'
 import { useItems } from '../hooks/useItems'
+import { useOutfits } from '../hooks/useOutfits'
 import type { ClothingCategory } from '../types/item'
 import { daysRemaining } from '../utils/dates'
 import { hasReturnDeadline } from '../utils/returns'
@@ -17,6 +18,7 @@ const RETURNS_SOON_WINDOW_DAYS = 7
 
 export function HomePage() {
   const { items, isLoading } = useItems()
+  const { outfits } = useOutfits()
 
   const activeItems = useMemo(() => items.filter((item) => item.returnStatus !== 'returned'), [items])
 
@@ -70,6 +72,7 @@ export function HomePage() {
         <div className="mt-6 flex flex-col gap-8">
           <div className="flex gap-8">
             <StatTile value={activeItems.length} label={activeItems.length === 1 ? 'item' : 'items'} />
+            <StatTile value={outfits.length} label={outfits.length === 1 ? 'outfit' : 'outfits'} />
           </div>
 
           <CategoryOverviewGrid counts={categoryCounts} />

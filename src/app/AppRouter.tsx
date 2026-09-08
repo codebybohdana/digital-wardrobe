@@ -1,6 +1,6 @@
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import { AddEditItemPage } from '../pages/AddEditItemPage'
-import { CreateOutfitPage } from '../pages/CreateOutfitPage'
+import { AddEditOutfitPage } from '../pages/AddEditOutfitPage'
 import { HomePage } from '../pages/HomePage'
 import { ItemDetailsPage } from '../pages/ItemDetailsPage'
 import { OutfitDetailsPage } from '../pages/OutfitDetailsPage'
@@ -25,8 +25,9 @@ export function AppRouter() {
         <Route path="item/new" element={<AddEditItemPage />} />
         <Route path="item/:id" element={<ItemDetailsPage />} />
         <Route path="item/:id/edit" element={<AddEditItemPage />} />
-        <Route path="outfit/new" element={<CreateOutfitPage />} />
+        <Route path="outfit/new" element={<AddEditOutfitPage />} />
         <Route path="outfit/:id" element={<OutfitDetailsPage />} />
+        <Route path="outfit/:id/edit" element={<AddEditOutfitPage />} />
       </Routes>
     </HashRouter>
   )
