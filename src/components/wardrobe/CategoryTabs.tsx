@@ -10,7 +10,7 @@ const categories: (ClothingCategory | 'all')[] = ['all', ...(Object.keys(CATEGOR
 
 export function CategoryTabs({ value, onChange }: CategoryTabsProps) {
   return (
-    <div className="flex gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <div className="flex gap-5 overflow-x-auto scrollbar-none">
       {categories.map((category) => {
         const active = value === category
         return (
@@ -18,8 +18,8 @@ export function CategoryTabs({ value, onChange }: CategoryTabsProps) {
             key={category}
             type="button"
             onClick={() => onChange(category)}
-            className={`shrink-0 rounded-full border px-4 py-1.5 text-sm font-medium ${
-              active ? 'border-stone-900 bg-stone-900 text-white' : 'border-stone-200 text-stone-600'
+            className={`shrink-0 border-b pb-1 text-sm whitespace-nowrap transition-colors duration-200 active:opacity-60 ${
+              active ? 'border-ink text-ink' : 'border-transparent text-ink-faint'
             }`}
           >
             {category === 'all' ? 'All' : CATEGORY_LABELS[category]}

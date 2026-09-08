@@ -17,18 +17,18 @@ export function ReturnItemRow({ item, onKeep, onReturn }: ReturnItemRowProps) {
   const showActions = Boolean(onKeep && onReturn)
 
   return (
-    <div className="rounded-2xl border border-stone-100 p-3">
-      <Link to={`/item/${item.id}`} className="flex items-center gap-3">
-        <div className="h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-stone-100">
+    <div className="flex items-center gap-4 py-4">
+      <Link to={`/item/${item.id}`} className="flex min-w-0 flex-1 items-center gap-4">
+        <div className="h-16 w-14 shrink-0 overflow-hidden bg-surface">
           {photoUrl ? (
             <img src={photoUrl} alt={item.name} className="h-full w-full object-cover" />
           ) : (
-            <PhotoPlaceholder iconClassName="h-6 w-6" />
+            <PhotoPlaceholder iconClassName="h-5 w-5" />
           )}
         </div>
         <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-medium text-stone-900">{item.name}</p>
-          <p className="truncate text-xs text-stone-500">
+          <p className="truncate text-sm text-ink">{item.name}</p>
+          <p className="truncate text-xs text-ink-muted">
             {item.brand ? `${item.brand} · ` : ''}
             {formatDate(item.returnDeadline)}
           </p>
@@ -43,20 +43,12 @@ export function ReturnItemRow({ item, onKeep, onReturn }: ReturnItemRowProps) {
       </Link>
 
       {showActions && (
-        <div className="mt-3 flex gap-2">
-          <button
-            type="button"
-            onClick={onKeep}
-            className="flex-1 rounded-full border border-stone-300 py-2 text-sm font-medium text-stone-700"
-          >
+        <div className="flex shrink-0 flex-col items-end gap-1.5">
+          <button type="button" onClick={onKeep} className="text-xs text-ink underline underline-offset-4">
             Keep
           </button>
-          <button
-            type="button"
-            onClick={onReturn}
-            className="flex-1 rounded-full border border-stone-300 py-2 text-sm font-medium text-stone-700"
-          >
-            Returned
+          <button type="button" onClick={onReturn} className="text-xs text-ink-muted underline underline-offset-4">
+            Return
           </button>
         </div>
       )}

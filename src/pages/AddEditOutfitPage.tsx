@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { ItemPicker } from '../components/outfits/ItemPicker'
 import { PageHeader } from '../components/layout/PageHeader'
+import { ItemPicker } from '../components/outfits/ItemPicker'
 import { EmptyState } from '../components/ui/EmptyState'
 import { createOutfit, getOutfitById, updateOutfit } from '../db/outfits'
 import { useItems } from '../hooks/useItems'
@@ -84,7 +84,7 @@ export function AddEditOutfitPage() {
     return (
       <div>
         <PageHeader title="Outfit" />
-        <div className="px-4 py-24 text-center text-sm text-stone-400">Loading outfit…</div>
+        <div className="px-6 py-24 text-center text-sm text-ink-faint">Loading outfit…</div>
       </div>
     )
   }
@@ -100,7 +100,7 @@ export function AddEditOutfitPage() {
             <button
               type="button"
               onClick={() => navigate('/outfits')}
-              className="rounded-full bg-stone-900 px-5 py-2.5 text-sm font-medium text-white"
+              className="bg-ink px-6 py-3 text-sm text-paper"
             >
               Back to outfits
             </button>
@@ -114,9 +114,9 @@ export function AddEditOutfitPage() {
     <div className="mx-auto max-w-md pb-28">
       <PageHeader title={isEditMode ? 'Edit Outfit' : 'Create Outfit'} />
 
-      <div className="flex flex-col gap-5 p-4">
+      <div className="flex flex-col gap-6 px-6">
         <div>
-          <label className="text-sm font-medium text-stone-700" htmlFor="outfit-name">
+          <label className="text-xs tracking-[0.14em] text-ink-faint uppercase" htmlFor="outfit-name">
             Name
           </label>
           <input
@@ -125,34 +125,30 @@ export function AddEditOutfitPage() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="e.g. Weekend brunch"
-            className="mt-1 w-full rounded-xl border border-stone-200 px-3 py-2 text-sm text-stone-900 focus:border-stone-400 focus:outline-none"
+            className="mt-1.5 w-full border-b border-line bg-transparent pb-2 text-sm text-ink focus:border-ink focus:outline-none"
           />
         </div>
 
         {itemsLoading ? (
-          <div className="py-12 text-center text-sm text-stone-400">Loading wardrobe…</div>
+          <div className="py-12 text-center text-sm text-ink-faint">Loading wardrobe…</div>
         ) : activeItems.length === 0 ? (
-          <p className="text-sm text-stone-500">Add wardrobe items first before creating an outfit.</p>
+          <p className="text-sm text-ink-muted">Add wardrobe items first before creating an outfit.</p>
         ) : (
           <ItemPicker items={activeItems} selectedIds={selectedIds} onToggle={toggleItem} />
         )}
 
-        {error && <p className="text-xs text-red-600">{error}</p>}
+        {error && <p className="text-xs text-urgent">{error}</p>}
       </div>
 
-      <div className="fixed inset-x-0 bottom-0 mx-auto flex max-w-md gap-3 border-t border-stone-200 bg-white p-4">
-        <button
-          type="button"
-          onClick={handleCancel}
-          className="flex-1 rounded-full border border-stone-300 py-3 text-sm font-medium text-stone-700"
-        >
+      <div className="fixed inset-x-0 bottom-0 mx-auto flex max-w-md items-center justify-between border-t border-line bg-paper px-6 py-4">
+        <button type="button" onClick={handleCancel} className="text-sm text-ink-muted underline underline-offset-4">
           Cancel
         </button>
         <button
           type="button"
           onClick={handleSubmit}
           disabled={isSubmitting}
-          className="flex-1 rounded-full bg-stone-900 py-3 text-sm font-medium text-white disabled:opacity-50"
+          className="bg-ink px-8 py-3 text-sm text-paper disabled:opacity-50"
         >
           {isSubmitting ? 'Saving…' : isEditMode ? 'Save changes' : 'Create outfit'}
         </button>

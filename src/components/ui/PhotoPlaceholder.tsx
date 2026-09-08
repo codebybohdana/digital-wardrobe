@@ -4,7 +4,7 @@ interface PhotoPlaceholderProps {
 
 export function PhotoPlaceholder({ iconClassName = 'h-10 w-10' }: PhotoPlaceholderProps) {
   return (
-    <div className="flex h-full w-full items-center justify-center text-stone-300">
+    <div className="flex h-full w-full items-center justify-center bg-surface text-ink-faint">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.2} className={iconClassName}>
         <path
           strokeLinecap="round"

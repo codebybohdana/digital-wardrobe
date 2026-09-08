@@ -63,7 +63,7 @@ export function AddEditItemPage() {
     return (
       <div>
         <PageHeader title="Edit Item" />
-        <div className="px-4 py-24 text-center text-sm text-stone-400">Loading item…</div>
+        <div className="px-6 py-24 text-center text-sm text-ink-faint">Loading item…</div>
       </div>
     )
   }
@@ -79,7 +79,7 @@ export function AddEditItemPage() {
             <button
               type="button"
               onClick={() => navigate('/wardrobe')}
-              className="rounded-full bg-stone-900 px-5 py-2.5 text-sm font-medium text-white"
+              className="bg-ink px-6 py-3 text-sm text-paper"
             >
               Back to wardrobe
             </button>

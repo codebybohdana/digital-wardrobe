@@ -54,8 +54,8 @@ function toFormValues(item?: ClothingItem): ItemFormValues {
 }
 
 const inputClass =
-  'mt-1 w-full rounded-xl border border-stone-200 px-3 py-2 text-sm text-stone-900 focus:border-stone-400 focus:outline-none'
-const labelClass = 'text-sm font-medium text-stone-700'
+  'mt-1.5 w-full border-b border-line bg-transparent pb-2 text-sm text-ink focus:border-ink focus:outline-none'
+const labelClass = 'text-xs tracking-[0.14em] text-ink-faint uppercase'
 
 export function ItemForm({ initialItem, submitLabel, onSubmit, onCancel }: ItemFormProps) {
   const [values, setValues] = useState<ItemFormValues>(() => toFormValues(initialItem))
@@ -102,7 +102,7 @@ export function ItemForm({ initialItem, submitLabel, onSubmit, onCancel }: ItemF
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5 p-4 pb-28">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-6 px-6 pb-28">
       <PhotoPicker photo={values.photo} onChange={(photo) => updateField('photo', photo)} />
 
       <div>
@@ -117,7 +117,7 @@ export function ItemForm({ initialItem, submitLabel, onSubmit, onCancel }: ItemF
           placeholder="e.g. White cotton shirt"
           className={inputClass}
         />
-        {errors.name && <p className="mt-1 text-xs text-red-600">{errors.name}</p>}
+        {errors.name && <p className="mt-1.5 text-xs text-urgent">{errors.name}</p>}
       </div>
 
       <div>
@@ -137,10 +137,10 @@ export function ItemForm({ initialItem, submitLabel, onSubmit, onCancel }: ItemF
             </option>
           ))}
         </select>
-        {errors.category && <p className="mt-1 text-xs text-red-600">{errors.category}</p>}
+        {errors.category && <p className="mt-1.5 text-xs text-urgent">{errors.category}</p>}
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-6">
         <div>
           <label className={labelClass} htmlFor="brand">
             Brand
@@ -186,7 +186,7 @@ export function ItemForm({ initialItem, submitLabel, onSubmit, onCancel }: ItemF
         </select>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-6">
         <div>
           <label className={labelClass} htmlFor="price">
             Price
@@ -201,7 +201,7 @@ export function ItemForm({ initialItem, submitLabel, onSubmit, onCancel }: ItemF
             onChange={(e) => updateField('price', e.target.value)}
             className={inputClass}
           />
-          {errors.price && <p className="mt-1 text-xs text-red-600">{errors.price}</p>}
+          {errors.price && <p className="mt-1.5 text-xs text-urgent">{errors.price}</p>}
         </div>
         <div>
           <label className={labelClass} htmlFor="store">
@@ -217,7 +217,7 @@ export function ItemForm({ initialItem, submitLabel, onSubmit, onCancel }: ItemF
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-6">
         <div>
           <label className={labelClass} htmlFor="purchaseDate">
             Purchase date
@@ -241,22 +241,18 @@ export function ItemForm({ initialItem, submitLabel, onSubmit, onCancel }: ItemF
             onChange={(e) => updateField('returnDeadline', e.target.value)}
             className={inputClass}
           />
-          {errors.returnDeadline && <p className="mt-1 text-xs text-red-600">{errors.returnDeadline}</p>}
+          {errors.returnDeadline && <p className="mt-1.5 text-xs text-urgent">{errors.returnDeadline}</p>}
         </div>
       </div>
 
-      <div className="fixed inset-x-0 bottom-0 mx-auto flex max-w-md gap-3 border-t border-stone-200 bg-white p-4">
-        <button
-          type="button"
-          onClick={onCancel}
-          className="flex-1 rounded-full border border-stone-300 py-3 text-sm font-medium text-stone-700"
-        >
+      <div className="fixed inset-x-0 bottom-0 mx-auto flex max-w-md items-center justify-between border-t border-line bg-paper px-6 py-4">
+        <button type="button" onClick={onCancel} className="text-sm text-ink-muted underline underline-offset-4">
           Cancel
         </button>
         <button
           type="submit"
           disabled={isSubmitting}
-          className="flex-1 rounded-full bg-stone-900 py-3 text-sm font-medium text-white disabled:opacity-50"
+          className="bg-ink px-8 py-3 text-sm text-paper disabled:opacity-50"
         >
           {isSubmitting ? 'Saving…' : submitLabel}
         </button>

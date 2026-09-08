@@ -10,34 +10,28 @@ export function OutfitsPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between px-4 pt-6 pb-2">
+      <header className="flex items-start justify-between px-6 pt-10 pb-6">
         <div>
-          <h1 className="text-2xl font-semibold text-stone-900">Outfits</h1>
+          <p className="text-xs tracking-[0.2em] text-ink-muted uppercase">Outfits</p>
           {!isLoading && (
-            <p className="text-sm text-stone-500">
-              {outfits.length} {outfits.length === 1 ? 'outfit' : 'outfits'}
-            </p>
+            <h1 className="font-display mt-2 text-3xl text-ink">
+              {outfits.length} {outfits.length === 1 ? 'look' : 'looks'}
+            </h1>
           )}
         </div>
-        <Link
-          to="/outfit/new"
-          className="rounded-full bg-stone-900 px-4 py-2 text-sm font-medium text-white"
-        >
-          Create outfit
+        <Link to="/outfit/new" className="mt-1 text-sm text-ink underline underline-offset-4">
+          + Create
         </Link>
-      </div>
+      </header>
 
       {isLoading ? (
-        <div className="px-4 py-24 text-center text-sm text-stone-400">Loading outfits…</div>
+        <div className="px-6 py-24 text-center text-sm text-ink-faint">Loading outfits…</div>
       ) : outfits.length === 0 ? (
         <EmptyState
           title="No outfits yet"
           message="Combine pieces from your wardrobe into saved looks you can wear again."
           action={
-            <Link
-              to="/outfit/new"
-              className="rounded-full bg-stone-900 px-5 py-2.5 text-sm font-medium text-white"
-            >
+            <Link to="/outfit/new" className="bg-ink px-6 py-3 text-sm text-paper">
               Create your first outfit
             </Link>
           }

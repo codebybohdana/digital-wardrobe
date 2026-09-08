@@ -35,25 +35,27 @@ export function ReturnsPage() {
   }
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-semibold text-stone-900">Returns</h1>
-      <p className="mt-1 text-sm text-stone-500">
-        Track return deadlines for recent purchases. This is optional — most wardrobe items don't need it.
-      </p>
+    <div>
+      <header className="px-6 pt-10 pb-6">
+        <p className="text-xs tracking-[0.2em] text-ink-muted uppercase">Returns</p>
+        <p className="mt-2 max-w-[38ch] text-sm text-ink-muted">
+          Return tracking is optional — only for the few pieces you're still deciding on.
+        </p>
+      </header>
 
       {isLoading ? (
-        <div className="py-24 text-center text-sm text-stone-400">Loading…</div>
+        <div className="px-6 py-24 text-center text-sm text-ink-faint">Loading…</div>
       ) : trackedItems.length === 0 ? (
         <EmptyState
           title="Nothing to track"
           message="Add a return deadline when adding or editing an item to track it here."
         />
       ) : (
-        <div className="mt-6 flex flex-col gap-8">
+        <div className="flex flex-col gap-10 px-6 pb-10">
           {activeItems.length > 0 && (
             <section>
-              <h2 className="mb-3 text-sm font-medium text-stone-700">Active decisions</h2>
-              <div className="flex flex-col gap-3">
+              <p className="text-xs tracking-[0.2em] text-ink-faint uppercase">Active</p>
+              <div className="mt-2 flex flex-col divide-y divide-line border-t border-line">
                 {activeItems.map((item) => (
                   <ReturnItemRow
                     key={item.id}
@@ -68,8 +70,8 @@ export function ReturnsPage() {
 
           {historyItems.length > 0 && (
             <section>
-              <h2 className="mb-3 text-sm font-medium text-stone-700">History</h2>
-              <div className="flex flex-col gap-3">
+              <p className="text-xs tracking-[0.2em] text-ink-faint uppercase">History</p>
+              <div className="mt-2 flex flex-col divide-y divide-line border-t border-line">
                 {historyItems.map((item) => (
                   <ReturnItemRow key={item.id} item={item} />
                 ))}

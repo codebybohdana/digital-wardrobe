@@ -17,19 +17,19 @@ interface FilterSheetProps {
   onChange: (filters: AdvancedFilters) => void
 }
 
-interface ChipProps {
+interface TextChipProps {
   label: string
   active: boolean
   onClick: () => void
 }
 
-function Chip({ label, active, onClick }: ChipProps) {
+function TextChip({ label, active, onClick }: TextChipProps) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-full border px-3 py-1.5 text-sm ${
-        active ? 'border-stone-900 bg-stone-900 text-white' : 'border-stone-200 text-stone-600'
+      className={`border-b pb-0.5 text-sm transition-colors duration-200 active:opacity-60 ${
+        active ? 'border-ink text-ink' : 'border-transparent text-ink-muted'
       }`}
     >
       {label}
@@ -54,13 +54,13 @@ export function FilterSheet({ open, onClose, brands, colors, filters, onChange }
 
   return (
     <BottomSheet open={open} onClose={onClose} title="Filters">
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-6">
         {brands.length > 0 && (
           <div>
-            <p className="mb-2 text-sm font-medium text-stone-700">Brand</p>
-            <div className="flex flex-wrap gap-2">
+            <p className="mb-3 text-xs tracking-[0.12em] text-ink-faint uppercase">Brand</p>
+            <div className="flex flex-wrap gap-x-4 gap-y-2">
               {brands.map((brand) => (
-                <Chip key={brand} label={brand} active={filters.brand === brand} onClick={() => toggleBrand(brand)} />
+                <TextChip key={brand} label={brand} active={filters.brand === brand} onClick={() => toggleBrand(brand)} />
               ))}
             </div>
           </div>
@@ -68,20 +68,20 @@ export function FilterSheet({ open, onClose, brands, colors, filters, onChange }
 
         {colors.length > 0 && (
           <div>
-            <p className="mb-2 text-sm font-medium text-stone-700">Color</p>
-            <div className="flex flex-wrap gap-2">
+            <p className="mb-3 text-xs tracking-[0.12em] text-ink-faint uppercase">Color</p>
+            <div className="flex flex-wrap gap-x-4 gap-y-2">
               {colors.map((color) => (
-                <Chip key={color} label={color} active={filters.color === color} onClick={() => toggleColor(color)} />
+                <TextChip key={color} label={color} active={filters.color === color} onClick={() => toggleColor(color)} />
               ))}
             </div>
           </div>
         )}
 
         <div>
-          <p className="mb-2 text-sm font-medium text-stone-700">Season</p>
-          <div className="flex flex-wrap gap-2">
+          <p className="mb-3 text-xs tracking-[0.12em] text-ink-faint uppercase">Season</p>
+          <div className="flex flex-wrap gap-x-4 gap-y-2">
             {(Object.keys(SEASON_LABELS) as Season[]).map((season) => (
-              <Chip
+              <TextChip
                 key={season}
                 label={SEASON_LABELS[season]}
                 active={filters.season === season}
@@ -91,20 +91,16 @@ export function FilterSheet({ open, onClose, brands, colors, filters, onChange }
           </div>
         </div>
 
-        <div className="mt-2 flex gap-3">
+        <div className="mt-2 flex items-center justify-between">
           <button
             type="button"
             onClick={() => onChange({})}
             disabled={!hasActiveFilters}
-            className="flex-1 rounded-full border border-stone-300 py-2.5 text-sm font-medium text-stone-700 disabled:opacity-40"
+            className="text-sm text-ink-muted underline underline-offset-4 disabled:opacity-30"
           >
             Clear
           </button>
-          <button
-            type="button"
-            onClick={onClose}
-            className="flex-1 rounded-full bg-stone-900 py-2.5 text-sm font-medium text-white"
-          >
+          <button type="button" onClick={onClose} className="bg-ink px-6 py-2.5 text-sm text-paper">
             Done
           </button>
         </div>

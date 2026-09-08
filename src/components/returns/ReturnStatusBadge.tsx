@@ -6,9 +6,5 @@ interface ReturnStatusBadgeProps {
 }
 
 export function ReturnStatusBadge({ status }: ReturnStatusBadgeProps) {
-  return (
-    <span className="inline-flex w-fit items-center rounded-full bg-stone-100 px-2.5 py-1 text-xs font-medium text-stone-600">
-      {RETURN_STATUS_LABELS[status]}
-    </span>
-  )
+  return <span className="text-xs tracking-widest text-ink-faint uppercase">{RETURN_STATUS_LABELS[status]}</span>
 }

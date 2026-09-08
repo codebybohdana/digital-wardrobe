@@ -11,10 +11,8 @@ interface ItemPickerProps {
 export function ItemPicker({ items, selectedIds, onToggle }: ItemPickerProps) {
   return (
     <div>
-      <p className="mb-2 text-sm font-medium text-stone-700">
-        {selectedIds.length} selected
-      </p>
-      <div className="grid grid-cols-3 gap-3">
+      <p className="text-xs tracking-[0.14em] text-ink-faint uppercase">{selectedIds.length} selected</p>
+      <div className="mt-3 grid grid-cols-3 gap-x-1.5 gap-y-4">
         {items.map((item) => (
           <PickerTile
             key={item.id}
@@ -38,10 +36,10 @@ function PickerTile({ item, selected, onToggle }: PickerTileProps) {
   const photoUrl = usePhotoUrl(item.photo)
 
   return (
-    <button type="button" onClick={onToggle} className="flex flex-col items-start gap-1 text-left">
+    <button type="button" onClick={onToggle} className="flex flex-col items-start gap-1.5 text-left">
       <div
-        className={`relative aspect-square w-full overflow-hidden rounded-xl border-2 bg-stone-100 ${
-          selected ? 'border-stone-900' : 'border-transparent'
+        className={`aspect-3/4 w-full overflow-hidden bg-surface transition-opacity duration-200 ease-out ${
+          selected ? 'opacity-100 ring-1 ring-inset ring-ink' : 'opacity-45'
         }`}
       >
         {photoUrl ? (
@@ -49,15 +47,8 @@ function PickerTile({ item, selected, onToggle }: PickerTileProps) {
         ) : (
           <PhotoPlaceholder iconClassName="h-6 w-6" />
         )}
-        {selected && (
-          <span className="absolute top-1.5 right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-stone-900 text-white">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} className="h-3 w-3">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-            </svg>
-          </span>
-        )}
       </div>
-      <p className="w-full truncate text-xs text-stone-600">{item.name}</p>
+      <p className="w-full truncate text-xs text-ink-muted">{item.name}</p>
     </button>
   )
 }

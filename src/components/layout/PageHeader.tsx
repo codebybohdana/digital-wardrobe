@@ -9,18 +9,18 @@ export function PageHeader({ title, onBack }: PageHeaderProps) {
   const navigate = useNavigate()
 
   return (
-    <header className="flex items-center gap-3 border-b border-stone-200 px-4 py-4">
+    <header className="flex items-center gap-4 px-6 py-5">
       <button
         type="button"
         onClick={onBack ?? (() => navigate(-1))}
         aria-label="Back"
-        className="flex h-8 w-8 items-center justify-center rounded-full text-stone-600"
+        className="text-ink-muted transition-colors duration-200 active:opacity-60"
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-5 w-5">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="h-5 w-5">
           <path strokeLinecap="round" strokeLinejoin="round" d="M15 18l-6-6 6-6" />
         </svg>
       </button>
-      <h1 className="text-lg font-semibold text-stone-900">{title}</h1>
+      <h1 className="truncate text-sm text-ink-muted">{title}</h1>
     </header>
   )
 }

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { CATEGORY_LABELS } from '../../constants/categories'
 import type { ClothingCategory } from '../../types/item'
 
@@ -13,11 +14,16 @@ export function CategoryOverviewGrid({ counts }: CategoryOverviewGridProps) {
   }
 
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-col divide-y divide-line border-t border-line">
       {categories.map((category) => (
-        <div key={category} className="rounded-full bg-stone-100 px-3 py-1.5 text-xs text-stone-600">
-          <span className="font-medium text-stone-900">{counts[category]}</span> {CATEGORY_LABELS[category]}
-        </div>
+        <Link
+          key={category}
+          to={`/wardrobe?category=${category}`}
+          className="flex items-center justify-between py-3 text-sm text-ink transition-colors duration-200 active:opacity-60"
+        >
+          <span>{CATEGORY_LABELS[category]}</span>
+          <span className="text-ink-faint">{counts[category]}</span>
+        </Link>
       ))}
     </div>
   )

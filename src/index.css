@@ -1,9 +1,49 @@
 @import "tailwindcss";
 
+@theme {
+  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+
+  --color-paper: #f8f6f2;
+  --color-ink: #17150f;
+  --color-ink-muted: #8a8375;
+  --color-ink-faint: #bab3a3;
+  --color-line: #e7e1d5;
+  --color-surface: #efece3;
+  --color-caution: #9c7a3f;
+  --color-urgent: #a1503f;
+}
+
 :root {
   color-scheme: light;
 }
 
 body {
-  @apply bg-stone-50 text-stone-900;
+  @apply bg-paper text-ink antialiased;
+  font-family: var(--font-sans);
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 480ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up {
+    animation: none;
+  }
+
+  * {
+    transition-duration: 0.01ms !important;
+  }
 }

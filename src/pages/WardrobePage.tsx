@@ -1,18 +1,27 @@
 import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { EmptyState } from '../components/ui/EmptyState'
 import { CategoryTabs } from '../components/wardrobe/CategoryTabs'
 import { FilterSheet, type AdvancedFilters } from '../components/wardrobe/FilterSheet'
 import { ItemGrid } from '../components/wardrobe/ItemGrid'
 import { SearchBar } from '../components/wardrobe/SearchBar'
+import { CATEGORY_LABELS } from '../constants/categories'
 import { useItems } from '../hooks/useItems'
 import type { ClothingCategory } from '../types/item'
 
+function isClothingCategory(value: string | null): value is ClothingCategory {
+  return value !== null && value in CATEGORY_LABELS
+}
+
 export function WardrobePage() {
   const { items, isLoading } = useItems()
+  const [searchParams] = useSearchParams()
 
   const [query, setQuery] = useState('')
-  const [category, setCategory] = useState<ClothingCategory | 'all'>('all')
+  const [category, setCategory] = useState<ClothingCategory | 'all'>(() => {
+    const initial = searchParams.get('category')
+    return isClothingCategory(initial) ? initial : 'all'
+  })
   const [advancedFilters, setAdvancedFilters] = useState<AdvancedFilters>({})
   const [isFilterSheetOpen, setFilterSheetOpen] = useState(false)
 
@@ -62,91 +71,68 @@ export function WardrobePage() {
     setAdvancedFilters({})
   }
 
+  const summary = hasAnyFilter
+    ? `${filteredItems.length} of ${activeItems.length} pieces`
+    : `${activeItems.length} ${activeItems.length === 1 ? 'piece' : 'pieces'}`
+
   return (
     <div>
-      <div className="flex items-center justify-between px-4 pt-6 pb-2">
+      <header className="flex items-start justify-between px-6 pt-10 pb-6">
         <div>
-          <h1 className="text-2xl font-semibold text-stone-900">Wardrobe</h1>
-          {!isLoading && (
-            <p className="text-sm text-stone-500">
-              {hasAnyFilter
-                ? `${filteredItems.length} of ${activeItems.length} items`
-                : `${activeItems.length} ${activeItems.length === 1 ? 'item' : 'items'}`}
-            </p>
-          )}
+          <p className="text-xs tracking-[0.2em] text-ink-muted uppercase">Wardrobe</p>
+          {!isLoading && <h1 className="font-display mt-2 text-3xl text-ink">{summary}</h1>}
         </div>
-        <Link
-          to="/item/new"
-          className="rounded-full bg-stone-900 px-4 py-2 text-sm font-medium text-white"
-        >
-          Add item
+        <Link to="/item/new" className="mt-1 text-sm text-ink underline underline-offset-4">
+          + Add
         </Link>
-      </div>
+      </header>
 
       {!isLoading && activeItems.length > 0 && (
-        <div className="flex flex-col gap-3 px-4 pb-3">
-          <div className="flex items-center gap-2">
-            <div className="flex-1">
-              <SearchBar value={query} onChange={setQuery} />
-            </div>
-            <button
-              type="button"
-              onClick={() => setFilterSheetOpen(true)}
-              aria-label="Filters"
-              className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-stone-200 text-stone-600"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="h-4 w-4">
-                <path strokeLinecap="round" d="M4 7h10M18 7h2M4 17h2M8 17h12" />
-                <circle cx="16" cy="7" r="2" />
-                <circle cx="6" cy="17" r="2" />
-              </svg>
-              {advancedFilterCount > 0 && (
-                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-stone-900 text-[10px] font-medium text-white">
-                  {advancedFilterCount}
-                </span>
-              )}
-            </button>
-          </div>
+        <div className="flex flex-col gap-5 px-6 pb-6">
+          <SearchBar value={query} onChange={setQuery} />
 
           <CategoryTabs value={category} onChange={setCategory} />
 
-          {hasAnyFilter && (
+          <div className="flex items-center justify-between">
             <button
               type="button"
-              onClick={resetFilters}
-              className="self-start text-xs font-medium text-stone-500 underline underline-offset-2"
+              onClick={() => setFilterSheetOpen(true)}
+              className="text-sm text-ink-muted underline-offset-4 active:opacity-60"
             >
-              Reset filters
+              Filters{advancedFilterCount > 0 ? ` (${advancedFilterCount})` : ''}
             </button>
-          )}
+
+            {hasAnyFilter && (
+              <button
+                type="button"
+                onClick={resetFilters}
+                className="text-sm text-ink-muted underline underline-offset-4 active:opacity-60"
+              >
+                Reset
+              </button>
+            )}
+          </div>
         </div>
       )}
 
       {isLoading ? (
-        <div className="px-4 py-24 text-center text-sm text-stone-400">Loading wardrobe…</div>
+        <div className="px-6 py-24 text-center text-sm text-ink-faint">Loading wardrobe…</div>
       ) : activeItems.length === 0 ? (
         <EmptyState
           title="Your wardrobe is empty"
           message="Add your first piece to start building your digital wardrobe."
           action={
-            <Link
-              to="/item/new"
-              className="rounded-full bg-stone-900 px-5 py-2.5 text-sm font-medium text-white"
-            >
+            <Link to="/item/new" className="bg-ink px-6 py-3 text-sm text-paper">
               Add your first item
             </Link>
           }
         />
       ) : filteredItems.length === 0 ? (
         <EmptyState
-          title="No items match these filters"
+          title="No matches"
           message="Try adjusting your search or filters."
           action={
-            <button
-              type="button"
-              onClick={resetFilters}
-              className="rounded-full bg-stone-900 px-5 py-2.5 text-sm font-medium text-white"
-            >
+            <button type="button" onClick={resetFilters} className="bg-ink px-6 py-3 text-sm text-paper">
               Clear filters
             </button>
           }

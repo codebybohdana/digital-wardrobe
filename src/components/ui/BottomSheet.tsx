@@ -16,10 +16,10 @@ export function BottomSheet({ open, onClose, title, children }: BottomSheetProps
         type="button"
         aria-label="Close"
         onClick={onClose}
-        className="absolute inset-0 bg-stone-900/40"
+        className="absolute inset-0 bg-ink/30"
       />
-      <div className="relative mx-auto max-h-[80vh] w-full max-w-md overflow-y-auto rounded-t-3xl bg-white p-4 pb-8">
-        {title && <h2 className="mb-4 text-lg font-semibold text-stone-900">{title}</h2>}
+      <div className="relative mx-auto max-h-[80vh] w-full max-w-md overflow-y-auto bg-paper p-6 pb-10">
+        {title && <h2 className="font-display mb-5 text-xl text-ink">{title}</h2>}
         {children}
       </div>
     </div>

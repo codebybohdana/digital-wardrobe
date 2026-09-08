@@ -50,7 +50,7 @@ export function ItemDetailsPage() {
     return (
       <div>
         <PageHeader title="Item" />
-        <div className="px-4 py-24 text-center text-sm text-stone-400">Loading item…</div>
+        <div className="px-6 py-24 text-center text-sm text-ink-faint">Loading item…</div>
       </div>
     )
   }
@@ -66,7 +66,7 @@ export function ItemDetailsPage() {
             <button
               type="button"
               onClick={() => navigate('/wardrobe')}
-              className="rounded-full bg-stone-900 px-5 py-2.5 text-sm font-medium text-white"
+              className="bg-ink px-6 py-3 text-sm text-paper"
             >
               Back to wardrobe
             </button>
@@ -83,14 +83,14 @@ export function ItemDetailsPage() {
       <PageHeader title={item.name} />
       <ItemPhoto photo={item.photo} name={item.name} />
 
-      <div className="px-4 pt-4">
-        <h2 className="text-2xl font-semibold text-stone-900">{item.name}</h2>
-        <p className="mt-1 text-sm text-stone-500">
+      <div className="animate-fade-in-up px-6 pt-6">
+        <h2 className="font-display text-3xl text-ink">{item.name}</h2>
+        <p className="mt-1.5 text-sm text-ink-muted">
           {item.brand ? `${item.brand} · ` : ''}
           {CATEGORY_LABELS[item.category]}
         </p>
 
-        <dl className="mt-6 flex flex-col gap-3">
+        <dl className="mt-8 flex flex-col divide-y divide-line border-t border-line">
           {item.color && <DetailRow label="Color" value={item.color} />}
           {item.season && <DetailRow label="Season" value={SEASON_LABELS[item.season]} />}
           {item.price !== undefined && <DetailRow label="Price" value={`$${item.price.toFixed(2)}`} />}
@@ -99,32 +99,26 @@ export function ItemDetailsPage() {
         </dl>
 
         {item.returnDeadline && (
-          <div className="mt-6 rounded-2xl bg-stone-50 p-4">
-            <p className="text-xs font-medium tracking-wide text-stone-400 uppercase">Return tracking</p>
-            <dl className="mt-2 flex flex-col gap-2">
+          <div className="mt-8">
+            <p className="text-xs tracking-[0.14em] text-ink-faint uppercase">Return tracking</p>
+            <dl className="mt-3 flex flex-col divide-y divide-line border-t border-line">
               <DetailRow label="Return deadline" value={formatDate(item.returnDeadline)} />
-              {item.returnStatus && (
-                <DetailRow label="Status" value={RETURN_STATUS_LABELS[item.returnStatus]} />
-              )}
+              {item.returnStatus && <DetailRow label="Status" value={RETURN_STATUS_LABELS[item.returnStatus]} />}
             </dl>
           </div>
         )}
       </div>
 
-      <div className="fixed inset-x-0 bottom-0 mx-auto flex max-w-md gap-3 border-t border-stone-200 bg-white p-4">
-        <button
-          type="button"
-          onClick={() => navigate(`/item/${item.id}/edit`)}
-          className="flex-1 rounded-full bg-stone-900 py-3 text-sm font-medium text-white"
-        >
-          Edit
+      <div className="fixed inset-x-0 bottom-0 mx-auto flex max-w-md items-center justify-between border-t border-line bg-paper px-6 py-4">
+        <button type="button" onClick={handleDelete} className="text-sm text-ink-muted underline underline-offset-4">
+          Delete
         </button>
         <button
           type="button"
-          onClick={handleDelete}
-          className="flex-1 rounded-full border border-red-200 py-3 text-sm font-medium text-red-600"
+          onClick={() => navigate(`/item/${item.id}/edit`)}
+          className="bg-ink px-8 py-3 text-sm text-paper"
         >
-          Delete
+          Edit
         </button>
       </div>
     </div>
@@ -135,7 +129,7 @@ function ItemPhoto({ photo, name }: { photo?: Blob; name: string }) {
   const photoUrl = usePhotoUrl(photo)
 
   return (
-    <div className="mx-4 mt-4 aspect-4/5 overflow-hidden rounded-3xl bg-stone-100">
+    <div className="aspect-4/5 w-full overflow-hidden bg-surface">
       {photoUrl ? (
         <img src={photoUrl} alt={name} className="h-full w-full object-cover" />
       ) : (
@@ -147,9 +141,9 @@ function ItemPhoto({ photo, name }: { photo?: Blob; name: string }) {
 
 function DetailRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between text-sm">
-      <dt className="text-stone-500">{label}</dt>
-      <dd className="font-medium text-stone-900">{value}</dd>
+    <div className="flex items-center justify-between py-3 text-sm">
+      <dt className="text-ink-muted">{label}</dt>
+      <dd className="text-ink">{value}</dd>
     </div>
   )
 }
