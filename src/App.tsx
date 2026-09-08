@@ -1,6 +1,7 @@
 import { AppRouter } from './app/AppRouter'
 
 function App() {
+  
   return <AppRouter />
 }
 

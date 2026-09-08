@@ -1,13 +1,9 @@
 import { useMemo } from 'react'
+import { ReturnItemRow } from '../components/returns/ReturnItemRow'
 import { EmptyState } from '../components/ui/EmptyState'
-import { ReturnItemRow, type TrackedItem } from '../components/returns/ReturnItemRow'
 import { updateItem } from '../db/items'
 import { useItems } from '../hooks/useItems'
-import type { ClothingItem } from '../types/item'
-
-function hasReturnDeadline(item: ClothingItem): item is TrackedItem {
-  return item.returnDeadline !== undefined
-}
+import { hasReturnDeadline } from '../utils/returns'
 
 export function ReturnsPage() {
   const { items, isLoading } = useItems()

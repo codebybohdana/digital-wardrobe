@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { PageHeader } from '../components/layout/PageHeader'
 import { EmptyState } from '../components/ui/EmptyState'
+import { PhotoPlaceholder } from '../components/ui/PhotoPlaceholder'
 import { CATEGORY_LABELS } from '../constants/categories'
 import { RETURN_STATUS_LABELS } from '../constants/returnStatus'
 import { SEASON_LABELS } from '../constants/seasons'
@@ -138,15 +139,7 @@ function ItemPhoto({ photo, name }: { photo?: Blob; name: string }) {
       {photoUrl ? (
         <img src={photoUrl} alt={name} className="h-full w-full object-cover" />
       ) : (
-        <div className="flex h-full w-full items-center justify-center text-stone-300">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1} className="h-16 w-16">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 3a2 2 0 0 1 2 2 5 5 0 0 1 5 5l2 7a1 1 0 0 1-1 1.3H4a1 1 0 0 1-1-1.3l2-7a5 5 0 0 1 5-5 2 2 0 0 1 2-2Z"
-            />
-          </svg>
-        </div>
+        <PhotoPlaceholder iconClassName="h-16 w-16" />
       )}
     </div>
   )
