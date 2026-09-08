@@ -11,6 +11,7 @@ export function SearchBar({ value, onChange }: SearchBarProps) {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Search your wardrobe"
+        aria-label="Search your wardrobe"
         className="w-full bg-transparent text-sm text-ink placeholder:text-ink-faint focus:outline-none"
       />
     </div>

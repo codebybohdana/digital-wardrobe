@@ -3,6 +3,7 @@ import { AddEditItemPage } from '../pages/AddEditItemPage'
 import { AddEditOutfitPage } from '../pages/AddEditOutfitPage'
 import { HomePage } from '../pages/HomePage'
 import { ItemDetailsPage } from '../pages/ItemDetailsPage'
+import { NotFoundPage } from '../pages/NotFoundPage'
 import { OutfitDetailsPage } from '../pages/OutfitDetailsPage'
 import { OutfitsPage } from '../pages/OutfitsPage'
 import { ReturnsPage } from '../pages/ReturnsPage'
@@ -19,6 +20,7 @@ export function AppRouter() {
           <Route path="wardrobe" element={<WardrobePage />} />
           <Route path="outfits" element={<OutfitsPage />} />
           <Route path="returns" element={<ReturnsPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
 
         {/* Full-screen push routes (no bottom nav) */}

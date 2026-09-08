@@ -36,7 +36,13 @@ function PickerTile({ item, selected, onToggle }: PickerTileProps) {
   const photoUrl = usePhotoUrl(item.photo)
 
   return (
-    <button type="button" onClick={onToggle} className="flex flex-col items-start gap-1.5 text-left">
+    <button
+      type="button"
+      onClick={onToggle}
+      aria-pressed={selected}
+      aria-label={item.name}
+      className="flex flex-col items-start gap-1.5 text-left"
+    >
       <div
         className={`aspect-3/4 w-full overflow-hidden bg-surface transition-opacity duration-200 ease-out ${
           selected ? 'opacity-100 ring-1 ring-inset ring-ink' : 'opacity-45'

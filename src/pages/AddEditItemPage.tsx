@@ -93,6 +93,7 @@ export function AddEditItemPage() {
     <div className="mx-auto max-w-md">
       <PageHeader title={isEditMode ? 'Edit Item' : 'Add Item'} />
       <ItemForm
+        key={id ?? 'new'}
         initialItem={state.item}
         submitLabel={isEditMode ? 'Save changes' : 'Add item'}
         onSubmit={handleSubmit}

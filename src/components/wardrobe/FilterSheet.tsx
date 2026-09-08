@@ -28,6 +28,7 @@ function TextChip({ label, active, onClick }: TextChipProps) {
     <button
       type="button"
       onClick={onClick}
+      aria-pressed={active}
       className={`border-b pb-0.5 text-sm transition-colors duration-200 active:opacity-60 ${
         active ? 'border-ink text-ink' : 'border-transparent text-ink-muted'
       }`}

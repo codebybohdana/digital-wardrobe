@@ -13,8 +13,13 @@ export function PhotoPicker({ photo, onChange }: PhotoPickerProps) {
 
   function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0]
-    onChange(file)
     event.target.value = ''
+
+    if (file && !file.type.startsWith('image/')) {
+      return
+    }
+
+    onChange(file)
   }
 
   return (
@@ -24,6 +29,7 @@ export function PhotoPicker({ photo, onChange }: PhotoPickerProps) {
       <button
         type="button"
         onClick={() => inputRef.current?.click()}
+        aria-label={photo ? 'Replace photo' : 'Add photo'}
         className="mt-3 block aspect-3/4 w-40 overflow-hidden bg-surface transition-opacity duration-200 active:opacity-80"
       >
         {previewUrl ? (

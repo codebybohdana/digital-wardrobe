@@ -3,6 +3,7 @@ import { CATEGORY_LABELS } from '../../constants/categories'
 import { SEASON_LABELS } from '../../constants/seasons'
 import type { ClothingCategory, ClothingItem, Season } from '../../types/item'
 import { validateItemForm, type ItemFormErrors } from '../../utils/validation'
+import { DatePicker } from '../ui/DatePicker'
 import { PhotoPicker } from './PhotoPicker'
 
 export interface ItemFormSubmitValues {
@@ -222,24 +223,22 @@ export function ItemForm({ initialItem, submitLabel, onSubmit, onCancel }: ItemF
           <label className={labelClass} htmlFor="purchaseDate">
             Purchase date
           </label>
-          <input
+          <DatePicker
             id="purchaseDate"
-            type="date"
+            label="Purchase date"
             value={values.purchaseDate}
-            onChange={(e) => updateField('purchaseDate', e.target.value)}
-            className={inputClass}
+            onChange={(date) => updateField('purchaseDate', date)}
           />
         </div>
         <div>
           <label className={labelClass} htmlFor="returnDeadline">
             Return deadline
           </label>
-          <input
+          <DatePicker
             id="returnDeadline"
-            type="date"
+            label="Return deadline"
             value={values.returnDeadline}
-            onChange={(e) => updateField('returnDeadline', e.target.value)}
-            className={inputClass}
+            onChange={(date) => updateField('returnDeadline', date)}
           />
           {errors.returnDeadline && <p className="mt-1.5 text-xs text-urgent">{errors.returnDeadline}</p>}
         </div>

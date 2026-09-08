@@ -18,6 +18,7 @@ export function CategoryTabs({ value, onChange }: CategoryTabsProps) {
             key={category}
             type="button"
             onClick={() => onChange(category)}
+            aria-pressed={active}
             className={`shrink-0 border-b pb-1 text-sm whitespace-nowrap transition-colors duration-200 active:opacity-60 ${
               active ? 'border-ink text-ink' : 'border-transparent text-ink-faint'
             }`}
