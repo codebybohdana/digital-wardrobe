@@ -12,7 +12,7 @@ export function ItemCard({ item }: ItemCardProps) {
 
   return (
     <Link to={`/item/${item.id}`} className="group flex flex-col gap-2">
-      <div className="aspect-[3/4] w-full overflow-hidden rounded-2xl bg-stone-100">
+      <div className="aspect-3/4 w-full overflow-hidden rounded-2xl bg-stone-100">
         {photoUrl ? (
           <img
             src={photoUrl}
